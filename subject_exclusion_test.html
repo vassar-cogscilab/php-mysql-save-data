@@ -7,15 +7,38 @@
 
 var workerID = "ABC123";
 
-var xhr = new XMLHttpRequest();
-xhr.open('POST', 'check_subject_exclusion.php');
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.onload = function() {
-  if(xhr.status == 200){
-    var response = JSON.parse(xhr.responseText);
-    console.log(xhr.responseText);
+register_mturk_worker(workerID, success, fail);
+
+function register_mturk_worker(workerID, callback_success, callback_failure){
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', 'check_subject_exclusion.php');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.onload = function() {
+    if(xhr.status == 200){
+      var response = JSON.parse(xhr.responseText);
+      if(response.success){
+        callback_success(response);
+      } else {
+        callback_failure();
+      }
+    }
+  };
+  xhr.onerror = function(){
+    callback_failure();
   }
-};
-xhr.send(JSON.stringify({id: workerID}));
+  xhr.send(JSON.stringify({id: workerID}));
+}
+
+function success(response){
+  if(response.excluded){
+    exclude();
+  } else {
+    var code = response.code;
+  }
+}
+
+function fail(){
+  console.log("Something has gone wrong. There was a technical problem loading the experiment. Apologies for the incovenience.");
+}
 </script>
 </html>
