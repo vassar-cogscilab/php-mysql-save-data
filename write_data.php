@@ -81,10 +81,12 @@ try {
     $insertstmt->execute();
   }
 
-  echo '{"success": true}';
+  $r = array('success' => true);
+  echo json_encode($r);
 
 } catch(PDOException $e) {
-  echo '{"success": false, "message": ' . $e->getMessage();
+  $r = array('success' => false, 'error_message' => $e->getMessage());
+  echo json_encode($r);
 }
 
 $conn = null;
