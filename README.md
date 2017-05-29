@@ -12,7 +12,7 @@ The JS file is a client side library for communicating with the PHP.
 
 1. Start by editing `php/database_config.php`. You will need to provide login information for an account with `INSERT`, `SELECT`, and `SHOW` privileges for each of the three tables, `$table_register`, `$table_conditions`, and `$table_data`. You can specify the names of these tables in the configuration file.
 
-2. Setup the MySQL tables The PHP file expects three tables to be in the database.
+2. Setup the MySQL tables. The PHP file expects three tables to be in the database.
 
   `$table_register` needs to have the columns `row`, `workerID`, and `completionCode`.
   - `row` should be an auto incrementing primary key.
