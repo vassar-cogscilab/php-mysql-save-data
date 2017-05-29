@@ -10,7 +10,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // Table should have rowID, subjectID, assignedCondition, time
-  $stmt = $conn->prepare("SELECT assignedCondition FROM `$table_condition` WHERE `row` = (SELECT MAX(`row`) FROM `$table_condition`);");
+  $stmt = $conn->prepare("SELECT assignedCondition FROM `$table_conditions` WHERE `row` = (SELECT MAX(`row`) FROM `$table_conditions`);");
 
   $stmt->execute();
   $last_condition = $stmt->fetchColumn();
@@ -27,7 +27,7 @@ try {
   // Second stage is to create prepared SQL statement using the column
   // names as a guide to what values might be in the JSON.
   // If a value is missing from a particular trial, then NULL is inserted
-  $sql = "INSERT INTO `$table_condition` (`subjectID`, `assignedCondition`) VALUES (:subjectID, :assignedCondition)";
+  $sql = "INSERT INTO `$table_conditions` (`subjectID`, `assignedCondition`) VALUES (:subjectID, :assignedCondition)";
 
   $insertstmt = $conn->prepare($sql);
   $insertstmt->bindValue(":subjectID", $subject_info['id']);

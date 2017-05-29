@@ -10,7 +10,7 @@ try {
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   // Table should have rowID, subjectID, assigned_condition, time
-  $stmt = $conn->prepare("SELECT COUNT(*) AS `count` FROM `$table_exclude` WHERE `workerID` = :id;");
+  $stmt = $conn->prepare("SELECT COUNT(*) AS `count` FROM `$table_register` WHERE `workerID` = :id;");
   $stmt->bindValue(":id", $subject_info['id']);
   $stmt->execute();
   $last_condition = $stmt->fetchColumn();
@@ -24,7 +24,7 @@ try {
   // Second stage is to create prepared SQL statement using the column
   // names as a guide to what values might be in the JSON.
   // If a value is missing from a particular trial, then NULL is inserted
-  $sql = "INSERT INTO `$table_exclude` (`workerID`, `completionCode`) VALUES (:id, :code)";
+  $sql = "INSERT INTO `$table_register` (`workerID`, `completionCode`) VALUES (:id, :code)";
 
   $code = generateRandomString(6);
 
