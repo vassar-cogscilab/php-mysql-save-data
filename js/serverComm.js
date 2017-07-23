@@ -2,7 +2,7 @@ var serverComm = {};
 
 serverComm.logging = false;
 
-serverComm.register_subject = function(subject_id, callback_continue, callback_exclude, callback_failure){
+serverComm.register_subject = function(subject_id, callback_success, callback_exclude, callback_failure){
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'php/register_subject.php');
   xhr.setRequestHeader('Content-Type', 'application/json');
