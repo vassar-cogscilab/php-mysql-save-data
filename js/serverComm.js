@@ -13,7 +13,7 @@ serverComm.register_subject = function(subject_id, callback_success, callback_ex
         console.log(response);
       }
       if(response.success){
-        if(response.exclude){
+        if(response.excluded){
           callback_exclude(response);
         } else {
           callback_success(response);
